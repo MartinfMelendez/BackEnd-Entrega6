@@ -33,6 +33,6 @@ export default class ServiceMongoDao {
             return null;
         }
 
-        return ServiceModel.findByIdAndUpdate(id, { delete: true }, { new: true });
+        return ServiceModel.findByIdAndDelete(id, { delete: true }, { new: true });
     }
 }

@@ -27,31 +27,9 @@ async function update(id,data){
     return await serviceMongoDao.update(id,data)
 }
 
-// async function update(id, data) {
-
-//     const services = await readServices()
-
-//     const index = services.findIndex(
-//         service => service.id === Number(id)
-//     )
-
-//     if (index === -1) {
-//         return null
-//     }
-
-//     const updatedService = {
-//         ...services[index],
-//         ...data,
-//         id: services[index].id
-//     }
-
-//     services[index] = updatedService
-
-//     await writeServices(services)
-
-//     return updatedService
-// }
-
+async function remove(id) {
+    return serviceMongoDao.delete(id)
+}
 
 // async function remove(id) {
 
@@ -77,5 +55,6 @@ export {
     getAll,
     getById,
     create,
-    update
+    update,
+    remove
 }
