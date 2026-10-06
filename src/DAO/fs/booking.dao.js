@@ -1,5 +1,5 @@
 import fs from 'fs/promises'
-import raiz from '../utils/path.js'
+import raiz from '../../utils/path.js'
 
 const PATH = raiz + '/data/bookings.json'
 

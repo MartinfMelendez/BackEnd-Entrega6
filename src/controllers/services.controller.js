@@ -4,7 +4,7 @@ import {
     addService,
     updateService,
     deleteService
-} from '../managers/ServiceManager.js'
+} from '../service/services.service.js'
 
 
 async function getServices(req, res) {

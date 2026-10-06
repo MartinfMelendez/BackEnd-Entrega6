@@ -4,7 +4,7 @@ import {
     addBooking,
     addServiceToReservation,
     deleteBooking
-} from '../managers/BookingsManager.js'
+} from '../service/booking.service.js'
 
 
 async function getBookings(req, res) {
