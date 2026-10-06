@@ -23,6 +23,10 @@ return serviceMongoDao.create(data)
 }
 
 
+async function update(id,data){
+    return await serviceMongoDao.update(id,data)
+}
+
 // async function update(id, data) {
 
 //     const services = await readServices()
@@ -72,5 +76,6 @@ return serviceMongoDao.create(data)
 export {
     getAll,
     getById,
-    create
+    create,
+    update
 }

@@ -25,7 +25,7 @@ export default class ServiceMongoDao {
             return null;
         }
 
-        return ServiceModel.findByIdAndUpdate(id, data, { new: true });
+        return ServiceModel.findByIdAndUpdate(id, data, { returnDocument: 'after' });
     }
 
     async delete(id) {
