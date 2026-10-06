@@ -31,26 +31,6 @@ async function remove(id) {
     return serviceMongoDao.delete(id)
 }
 
-// async function remove(id) {
-
-//     const services = await readServices()
-
-//     const index = services.findIndex(
-//         service => service.id === Number(id)
-//     )
-
-//     if (index === -1) {
-//         return null
-//     }
-
-//     const deletedService = services.splice(index, 1)[0]
-
-//     await writeServices(services)
-
-//     return deletedService
-// }
-
-
 export {
     getAll,
     getById,
