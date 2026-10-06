@@ -1,7 +1,7 @@
 import {
     readBookings,
     writeBookings
-} from '../dao/booking.dao.js'
+} from '../dao/fs/booking.dao.js'
 
 
 async function getAll() {

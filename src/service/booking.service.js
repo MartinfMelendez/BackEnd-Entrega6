@@ -7,7 +7,7 @@ import {
     addService
 } from '../repository/bookin.repository.js'
 
-import { getAllServices } from './ServiceManager.js'
+import { getAllServices } from './services.service.js'
 
 
 async function getAllBookings() {

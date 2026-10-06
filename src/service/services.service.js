@@ -1,9 +1,7 @@
 import {
     getAll,
     getById,
-    create,
-    update,
-    remove
+    create
 } from '../repository/service.repository.js'
 
 

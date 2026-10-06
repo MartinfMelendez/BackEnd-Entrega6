@@ -2,9 +2,9 @@
 
 import mongoose from 'mongoose'
 
-import { ServiceModel } from '../models/service.model'
+import { ServiceModel } from '../models/service.model.js'
 
-export class ServiceMongoDao {
+export default class ServiceMongoDao {
     async getAll() {
         return ServiceModel.find()
     }
@@ -14,5 +14,25 @@ export class ServiceMongoDao {
             return null
         }
         return ServiceModel.findById(id)
+    }
+
+    async create(data) {
+        return ServiceModel.create(data)
+    }
+
+    async update(id, data) {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return null;
+        }
+
+        return ServiceModel.findByIdAndUpdate(id, data, { new: true });
+    }
+
+    async delete(id) {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return null;
+        }
+
+        return ServiceModel.findByIdAndUpdate(id, { delete: true }, { new: true });
     }
 }

@@ -1,93 +1,76 @@
 //Utilizamos el DAO 
 
-import { readServices,writeServices } from "../DAO/service.dao.js"
+import { readServices,writeServices } from "../DAO/fs/service.dao.js"
+
+import ServiceMongoDao from '../DAO/mongo/service.mongo.dao.js'
+
+const serviceMongoDao = new ServiceMongoDao()
+
 async function getAll() {
 
-    return await readServices()
+    return await serviceMongoDao.getAll()
 }
 
 
 async function getById(id) {
 
-    const services = await readServices()
+    return await serviceMongoDao.getById(id)
 
-    return services.find(
-        service => service.id === Number(id)
-    )
+}
+
+async function create(data){
+return serviceMongoDao.create(data)
 }
 
 
-async function create(service) {
+// async function update(id, data) {
 
-    const services = await readServices()
+//     const services = await readServices()
 
-    const newId = services.length > 0
-        ? Math.max(...services.map(service => service.id)) + 1
-        : 1
+//     const index = services.findIndex(
+//         service => service.id === Number(id)
+//     )
 
-    const newService = {
-        id: newId,
-        ...service
-    }
+//     if (index === -1) {
+//         return null
+//     }
 
-    services.push(newService)
+//     const updatedService = {
+//         ...services[index],
+//         ...data,
+//         id: services[index].id
+//     }
 
-    await writeServices(services)
+//     services[index] = updatedService
 
-    return newService
-}
+//     await writeServices(services)
 
-
-async function update(id, data) {
-
-    const services = await readServices()
-
-    const index = services.findIndex(
-        service => service.id === Number(id)
-    )
-
-    if (index === -1) {
-        return null
-    }
-
-    const updatedService = {
-        ...services[index],
-        ...data,
-        id: services[index].id
-    }
-
-    services[index] = updatedService
-
-    await writeServices(services)
-
-    return updatedService
-}
+//     return updatedService
+// }
 
 
-async function remove(id) {
+// async function remove(id) {
 
-    const services = await readServices()
+//     const services = await readServices()
 
-    const index = services.findIndex(
-        service => service.id === Number(id)
-    )
+//     const index = services.findIndex(
+//         service => service.id === Number(id)
+//     )
 
-    if (index === -1) {
-        return null
-    }
+//     if (index === -1) {
+//         return null
+//     }
 
-    const deletedService = services.splice(index, 1)[0]
+//     const deletedService = services.splice(index, 1)[0]
 
-    await writeServices(services)
+//     await writeServices(services)
 
-    return deletedService
-}
+//     return deletedService
+// }
 
 
 export {
     getAll,
     getById,
-    create,
-    update,
-    remove
+    create
 }
