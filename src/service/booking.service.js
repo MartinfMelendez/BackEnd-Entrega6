@@ -57,32 +57,40 @@ async function addBooking(
 
 async function addServiceToReservation(bookingId, serviceId) {
     const service = await getServiceById(serviceId)
+
     if (!service) {
         throw new Error("El servicio seleccionado no existe")
     }
+
     const booking = await getById(bookingId)
+
     if (!booking) {
         throw new Error("La reserva que intenta ingresar no existe")
     }
 
-    const item = booking.services.find((s) => String(s.services?.id === String(serviceId)))
+    const item = booking.services.find(
+        (s) => String(s.services) === String(serviceId)
+    )
 
     if (item) {
-        item.quantity = +1
+        item.quantity += 1
     } else {
-        booking.services.push({ services: serviceId, quantity: 1 })
+        booking.services.push({
+            services: serviceId,
+            quantity: 1
+        })
     }
 
     const services = booking.services.map((s) => ({
         services: s.services?._id ?? s.services,
-        quantity: s.quantity,
+        quantity: s.quantity
     }))
 
-    await update(bookingId,{ services})
+    await update(bookingId, { services })
 
     return getById(bookingId)
-
 }
+
 
 
 // async function updateBooking(id, data) {
