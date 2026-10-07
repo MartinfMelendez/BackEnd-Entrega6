@@ -1,6 +1,3 @@
-//Utilizamos el DAO 
-
-import { readServices,writeServices } from "../DAO/fs/service.dao.js"
 
 import ServiceMongoDao from '../DAO/mongo/service.mongo.dao.js'
 

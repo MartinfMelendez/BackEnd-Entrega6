@@ -1,7 +1,4 @@
-// import {
-//     readBookings,
-//     writeBookings
-// } from '../dao/fs/booking.dao.js'
+import { getById as getByIdService } from "./service.repository.js"
 
 import BookingMongoDao from "../DAO/mongo/booking.mongo.dao.js"
 
@@ -28,30 +25,9 @@ async function create(booking) {
 }
 
 
-// async function update(id, data) {
-
-//     const bookings = await readBookings()
-
-//     const index = bookings.findIndex(
-//         booking => booking.id === Number(id)
-//     )
-
-//     if (index === -1) {
-//         return null
-//     }
-
-//     const updatedBooking = {
-//         ...bookings[index],
-//         ...data,
-//         id: bookings[index].id
-//     }
-
-//     bookings[index] = updatedBooking
-
-//     await writeBookings(bookings)
-
-//     return updatedBooking
-// }
+async function update(id, data) {
+return await bookinMongoDao.update(id,data)
+}
 
 
 // async function remove(id) {
@@ -74,42 +50,9 @@ async function create(booking) {
 // }
 
 
-// async function addService(id, serviceId) {
-
-//     const bookings = await readBookings()
-
-//     const booking = bookings.find(
-//         booking => booking.id === Number(id)
-//     )
-
-//     if (!booking) {
-//         return null
-//     }
-
-//     const bookingService = booking.services.find(
-//         service => service.service === Number(serviceId)
-//     )
-
-//     if (!bookingService) {
-
-//         booking.services.push({
-//             service: Number(serviceId),
-//             quantity: 1
-//         })
-
-//     } else {
-
-//         bookingService.quantity += 1
-//     }
-
-//     await writeBookings(bookings)
-
-//     return booking
-// }
-
-
 export {
     getAll,
     getById,
-    create
+    create,
+    update
 }

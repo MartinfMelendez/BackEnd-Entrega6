@@ -13,7 +13,7 @@ const bookingSchema = new mongoose.Schema({
   },
   services: [
     {
-      serviceId: { type: mongoose.Schema.Types.ObjectId, ref: 'Service' },
+      services: { type: mongoose.Schema.Types.ObjectId, ref: 'Service' },
       quantity: { type: Number, default: 1 },
     },
   ],

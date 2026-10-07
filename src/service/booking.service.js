@@ -1,17 +1,16 @@
 import {
     getAll,
     getById,
-    create
-} from '../repository/bookin.repository.js'
+    create,
+    update
+    } from '../repository/bookin.repository.js'
 
-import { getAllServices } from './services.service.js'
+import { getServiceById } from './services.service.js'
 
 
 async function getAllBookings() {
-
     return await getAll()
 }
-
 
 async function getBookingById(id) {
 
@@ -56,32 +55,34 @@ async function addBooking(
 }
 
 
-// async function addServiceToReservation(
-//     bookingId,
-//     serviceId
-// ) {
+async function addServiceToReservation(bookingId, serviceId) {
+    const service = await getServiceById(serviceId)
+    if (!service) {
+        throw new Error("El servicio seleccionado no existe")
+    }
+    const booking = await getById(bookingId)
+    if (!booking) {
+        throw new Error("La reserva que intenta ingresar no existe")
+    }
 
-//     const services = await getAllServices()
+    const item = booking.services.find((s) => String(s.services?.id === String(serviceId)))
 
-//     const service = services.find(
-//         service => service.id === Number(serviceId)
-//     )
+    if (item) {
+        item.quantity = +1
+    } else {
+        booking.services.push({ services: serviceId, quantity: 1 })
+    }
 
-//     if (!service) {
-//         throw new Error('El servicio ingresado no existe')
-//     }
+    const services = booking.services.map((s) => ({
+        services: s.services?._id ?? s.services,
+        quantity: s.quantity,
+    }))
 
-//     const booking = await getById(bookingId)
+    await update(bookingId,{ services})
 
-//     if (!booking) {
-//         throw new Error('La reserva no existe')
-//     }
+    return getById(bookingId)
 
-//     return await addService(
-//         bookingId,
-//         serviceId
-//     )
-// }
+}
 
 
 // async function updateBooking(id, data) {
@@ -115,5 +116,6 @@ async function addBooking(
 export {
     getAllBookings,
     getBookingById,
-    addBooking
+    addBooking,
+    addServiceToReservation
 }
