@@ -1,9 +1,7 @@
 import {
     getAllBookings,
     getBookingById,
-    addBooking,
-    addServiceToReservation,
-    deleteBooking
+    addBooking
 } from '../service/booking.service.js'
 
 

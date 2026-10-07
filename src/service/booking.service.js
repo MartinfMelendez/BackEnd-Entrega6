@@ -1,10 +1,7 @@
 import {
     getAll,
     getById,
-    create,
-    update,
-    remove,
-    addService
+    create
 } from '../repository/bookin.repository.js'
 
 import { getAllServices } from './services.service.js'
@@ -47,18 +44,6 @@ async function addBooking(
         throw new Error('Todos los campos son obligatorios')
     }
 
-    const bookings = await getAll()
-
-    const existingBooking = bookings.find(
-        booking =>
-            booking.clientEmail === clientEmail &&
-            booking.date === date &&
-            booking.time === time
-    )
-
-    if (existingBooking) {
-        throw new Error('La reserva que intenta ingresar ya existe')
-    }
 
     return await create({
         clientName,
@@ -71,67 +56,64 @@ async function addBooking(
 }
 
 
-async function addServiceToReservation(
-    bookingId,
-    serviceId
-) {
+// async function addServiceToReservation(
+//     bookingId,
+//     serviceId
+// ) {
 
-    const services = await getAllServices()
+//     const services = await getAllServices()
 
-    const service = services.find(
-        service => service.id === Number(serviceId)
-    )
+//     const service = services.find(
+//         service => service.id === Number(serviceId)
+//     )
 
-    if (!service) {
-        throw new Error('El servicio ingresado no existe')
-    }
+//     if (!service) {
+//         throw new Error('El servicio ingresado no existe')
+//     }
 
-    const booking = await getById(bookingId)
+//     const booking = await getById(bookingId)
 
-    if (!booking) {
-        throw new Error('La reserva no existe')
-    }
+//     if (!booking) {
+//         throw new Error('La reserva no existe')
+//     }
 
-    return await addService(
-        bookingId,
-        serviceId
-    )
-}
-
-
-async function updateBooking(id, data) {
-
-    const booking = await getById(id)
-
-    if (!booking) {
-        throw new Error('Reserva no encontrada')
-    }
-
-    const { id: ignoredId, ...rest } = data
-
-    return await update(id, rest)
-}
+//     return await addService(
+//         bookingId,
+//         serviceId
+//     )
+// }
 
 
-async function deleteBooking(id) {
+// async function updateBooking(id, data) {
 
-    const booking = await remove(id)
+//     const booking = await getById(id)
 
-    if (!booking) {
-        throw new Error('Reserva no encontrada')
-    }
+//     if (!booking) {
+//         throw new Error('Reserva no encontrada')
+//     }
 
-    return {
-        message: 'Reserva eliminada correctamente'
-    }
-}
+//     const { id: ignoredId, ...rest } = data
+
+//     return await update(id, rest)
+// }
+
+
+// async function deleteBooking(id) {
+
+//     const booking = await remove(id)
+
+//     if (!booking) {
+//         throw new Error('Reserva no encontrada')
+//     }
+
+//     return {
+//         message: 'Reserva eliminada correctamente'
+//     }
+// }
 
 
 export {
     getAllBookings,
     getBookingById,
-    addBooking,
-    addServiceToReservation,
-    updateBooking,
-    deleteBooking
+    addBooking
 }

@@ -1,9 +1,7 @@
 import {
     getAll,
     getById,
-    create,
-    update,
-    remove
+    create
 } from '../repository/service.repository.js'
 
 
@@ -60,38 +58,36 @@ async function addService(
 }
 
 
-async function updateService(id, data) {
+// async function updateService(id, data) {
 
-    const service = await getById(id)
+//     const service = await getById(id)
 
-    if (!service) {
-        throw new Error('Servicio no encontrado')
-    }
+//     if (!service) {
+//         throw new Error('Servicio no encontrado')
+//     }
 
-    const { id: ignoredId, ...rest } = data
+//     const { id: ignoredId, ...rest } = data
 
-    return await update(id, rest)
-}
+//     return await update(id, rest)
+// }
 
 
-async function deleteService(id) {
+// async function deleteService(id) {
 
-    const service = await remove(id)
+//     const service = await remove(id)
 
-    if (!service) {
-        throw new Error('Servicio no encontrado')
-    }
+//     if (!service) {
+//         throw new Error('Servicio no encontrado')
+//     }
 
-    return service
-}
+//     return service
+// }
 
 
 export {
     getAllServices,
     getServiceById,
-    addService,
-    updateService,
-    deleteService
+    addService
 }
 
 

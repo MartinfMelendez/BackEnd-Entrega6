@@ -1,9 +1,7 @@
 import {
     getAllServices,
     getServiceById,
-    addService,
-    updateService,
-    deleteService
+    addService
 } from '../service/services.service.js'
 
 

@@ -1,131 +1,115 @@
-import {
-    readBookings,
-    writeBookings
-} from '../dao/fs/booking.dao.js'
+// import {
+//     readBookings,
+//     writeBookings
+// } from '../dao/fs/booking.dao.js'
 
+import BookingMongoDao from "../DAO/mongo/booking.mongo.dao.js"
+
+const bookinMongoDao = new BookingMongoDao()
 
 async function getAll() {
 
-    return await readBookings()
+    return await bookinMongoDao.getAll()
 }
 
 
 async function getById(id) {
 
-    const bookings = await readBookings()
+    return await bookinMongoDao.getById(id)
 
-    return bookings.find(
-        booking => booking.id === Number(id)
-    )
+
 }
 
 
 async function create(booking) {
 
-    const bookings = await readBookings()
+    return await bookinMongoDao.create(booking)
 
-    const newId = bookings.length > 0
-        ? Math.max(...bookings.map(booking => booking.id)) + 1
-        : 1
-
-    const newBooking = {
-        id: newId,
-        ...booking
-    }
-
-    bookings.push(newBooking)
-
-    await writeBookings(bookings)
-
-    return newBooking
 }
 
 
-async function update(id, data) {
+// async function update(id, data) {
 
-    const bookings = await readBookings()
+//     const bookings = await readBookings()
 
-    const index = bookings.findIndex(
-        booking => booking.id === Number(id)
-    )
+//     const index = bookings.findIndex(
+//         booking => booking.id === Number(id)
+//     )
 
-    if (index === -1) {
-        return null
-    }
+//     if (index === -1) {
+//         return null
+//     }
 
-    const updatedBooking = {
-        ...bookings[index],
-        ...data,
-        id: bookings[index].id
-    }
+//     const updatedBooking = {
+//         ...bookings[index],
+//         ...data,
+//         id: bookings[index].id
+//     }
 
-    bookings[index] = updatedBooking
+//     bookings[index] = updatedBooking
 
-    await writeBookings(bookings)
+//     await writeBookings(bookings)
 
-    return updatedBooking
-}
-
-
-async function remove(id) {
-
-    const bookings = await readBookings()
-
-    const index = bookings.findIndex(
-        booking => booking.id === Number(id)
-    )
-
-    if (index === -1) {
-        return null
-    }
-
-    const deletedBooking = bookings.splice(index, 1)[0]
-
-    await writeBookings(bookings)
-
-    return deletedBooking
-}
+//     return updatedBooking
+// }
 
 
-async function addService(id, serviceId) {
+// async function remove(id) {
 
-    const bookings = await readBookings()
+//     const bookings = await readBookings()
 
-    const booking = bookings.find(
-        booking => booking.id === Number(id)
-    )
+//     const index = bookings.findIndex(
+//         booking => booking.id === Number(id)
+//     )
 
-    if (!booking) {
-        return null
-    }
+//     if (index === -1) {
+//         return null
+//     }
 
-    const bookingService = booking.services.find(
-        service => service.service === Number(serviceId)
-    )
+//     const deletedBooking = bookings.splice(index, 1)[0]
 
-    if (!bookingService) {
+//     await writeBookings(bookings)
 
-        booking.services.push({
-            service: Number(serviceId),
-            quantity: 1
-        })
+//     return deletedBooking
+// }
 
-    } else {
 
-        bookingService.quantity += 1
-    }
+// async function addService(id, serviceId) {
 
-    await writeBookings(bookings)
+//     const bookings = await readBookings()
 
-    return booking
-}
+//     const booking = bookings.find(
+//         booking => booking.id === Number(id)
+//     )
+
+//     if (!booking) {
+//         return null
+//     }
+
+//     const bookingService = booking.services.find(
+//         service => service.service === Number(serviceId)
+//     )
+
+//     if (!bookingService) {
+
+//         booking.services.push({
+//             service: Number(serviceId),
+//             quantity: 1
+//         })
+
+//     } else {
+
+//         bookingService.quantity += 1
+//     }
+
+//     await writeBookings(bookings)
+
+//     return booking
+// }
 
 
 export {
     getAll,
     getById,
-    create,
-    update,
-    remove,
-    addService
+    create
 }
